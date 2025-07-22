@@ -17,45 +17,19 @@ try {
     // подключаемся к серверу
     $conn = new PDO("mysql:host=localhost;dbname=testdb1", "root", "mypassword");
      
+    // SQL-выражение для создания таблицы
     $sql = "CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE
 );";
+    // выполняем SQL-выражение
     $conn->exec($sql);
-    echo "Table created";
+    echo "Table Users has been created";
 }
 catch (PDOException $e) {
     echo "Database error: " . $e->getMessage();
 }
-
-
-if(isset($_POST["username"])){
-  
-    $username = $_POST["username"];
-}
-if(isset($_POST["email"])){
-  
-    $email = $_POST["email"];
-}
-
-if (isset($_POST["username"]) && isset($_POST["email"])) {
-     
-    $username = $_POST["username"];
-    $email = $_POST["email"];
-    try {
-        $conn = new PDO("mysql:host=localhost;dbname=testdb1", "root", "mypassword");
-        $sql = "INSERT INTO Users (name, age) VALUES ('$username', $email)";
-        $affectedRowsNumber = $conn->exec($sql);
-    }
-    catch (PDOException $e) {
-        echo "Database error: " . $e->getMessage();
-    }
-}
-
-echo "Имя: $username <br> email: $email";
-
 ?>
-
 
